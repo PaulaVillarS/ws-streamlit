@@ -25,7 +25,7 @@ if st.checkbox('Vista de datos (Head o Tail)'):
 
 st.subheader('Información de dimensiones')
 
-dim = st.radio('Dimensiónm a mostrar:', ('Filas', 'Columnas'),horizontal=True)
+dim = st.radio('Dimensióm a mostrar:', ('Filas', 'Columnas'),horizontal=True)
 if dim == 'Filas':
     st.write('Cantidad de filas:', df.shape[0])
 else:
@@ -44,20 +44,20 @@ countries_list = df['country'].unique().tolist()
 countries = st.multiselect('Seleccione países a analizar:', countries_list, default=['Argentina','Chile','Spain'])
 df_countries = df[df['country'].isin(countries)]
 fig = plt.figure(figsize=(6,4))
-sns.scatterplot(x= 'price', y = 'points', hue='country', data=df_countries[df_countries['price']<precio_limite])
+sns.scatterplot(x= 'price', y = 'points', hue='country', data=df_countries)
 st.pyplot(fig)
 
-if st.checkbox('Mostrar en dos columnas Argentina y Chile',False):
-    col1, col2 = st.columns(2)
-    with col1:
-        df_countries = df[df['country']=='Argentina']
-        fig = plt.figure()
-        sns.scatterplot(x= 'price', y='points',data=df_countries[df_countries['price']<precio_limite])
-        plt.title('Puntajes según precio para Argentina')
-        st.pyplot(fig)
-    with col2:
-        df_countries = df[df['country']=='Chile']
-        fig = plt.figure()
-        sns.scatterplot(x= 'price', y = 'points',data=df_countries[df_countries['price']<precio_limite])
-        plt.title('Puntajes según precio para Chile')
-        st.pyplot(fig)
+
+col1, col2 = st.columns(2)
+with col1:
+    df_countries = df[df['country']=='Argentina']
+    fig = plt.figure()
+    sns.scatterplot(x= 'price', y='points',data=df_countries)
+    plt.title('Puntajes según precio para Argentina')
+    st.pyplot(fig)
+with col2:
+    df_countries = df[df['country']=='Chile']
+    fig = plt.figure()
+    sns.scatterplot(x= 'price', y = 'points',data=df_countries)
+    plt.title('Puntajes según precio para Chile')
+    st.pyplot(fig)
